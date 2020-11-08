@@ -1,0 +1,25 @@
+.card-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+.card {
+	background-size: cover;
+	height: 310px;
+	width: 235px;
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	padding: 20px;
+	margin: 20px;
+	font-size: 1.3rem;
+	color: white;
+}
+.favorite-icon {
+	width: 70px;
+	height: 70px;
+}
+/* .favorite-icon path {
+	fill: blue;
+	stroke: none;
+} */
