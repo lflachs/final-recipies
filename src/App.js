@@ -1,6 +1,12 @@
 // Modules
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	NavLink,
+} from 'react-router-dom';
 
 // Components
 import Header from './components/Header/Header';
@@ -10,10 +16,10 @@ import NotFound from './Pages/NotFound';
 import './App.css';
 
 // Utils
-import { categories, apiUrl } from './utils/index';
+import { categories } from './utils/index';
 import Categories from './Pages/Category';
 import RandomSelection from './Pages/RandomSelection';
-import Favorite from './Pages/RandomSelection copy';
+import Favorite from './Pages/Favorite';
 
 export default class App extends React.Component {
 	state = { favorite: [] };
@@ -34,15 +40,23 @@ export default class App extends React.Component {
 		return (
 			<Router>
 				<Header />
-				{categories.map((categorie, index) => (
-					<Link to={categorie !== 'All' ? `/${categorie}` : `/`}>
-						<Button key={index} name={categorie} />
-					</Link>
-				))}
-				<Link to='/favorite'>Fav</Link>
+				<div className='button-list'>
+					{categories.map((categorie, index) => (
+						<NavLink
+							activeClassName='is-active'
+							to={categorie !== 'All' ? `/categories/${categorie}` : `/Home`}
+						>
+							<Button key={index} name={categorie} />
+						</NavLink>
+					))}
+				</div>
+				<Link to='/Favorite'>
+					<Button name='Favorite' />
+				</Link>
+
 				<Switch>
 					<Route
-						path='/'
+						path='/Home'
 						exact
 						render={() => (
 							<RandomSelection
@@ -63,7 +77,7 @@ export default class App extends React.Component {
 						)}
 					/>
 					<Route
-						path='/:filter'
+						path='/categories/:filter'
 						exact
 						render={(props) => (
 							<Categories favorites={this.state.favorite} {...props} />

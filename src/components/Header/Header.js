@@ -12,7 +12,7 @@ function Header() {
 				padding: '20px',
 			}}
 		>
-			<Link to='/'>
+			<Link to='/Home'>
 				<img src={logo} alt="logo Let's cooking" className='logo' />
 			</Link>
 			<SearchBar />

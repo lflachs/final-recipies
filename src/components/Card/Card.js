@@ -1,8 +1,13 @@
+// Modules
 import React from 'react';
-// import heart from '../../assets/heart.svg';
+
+// Assets
 import heart from '../../assets/heart.svg';
 import heartActive from '../../assets/heart-active.svg';
+
+// Style
 import './Card.css';
+
 class Card extends React.Component {
 	state = { favorite: false };
 
@@ -13,18 +18,18 @@ class Card extends React.Component {
 		this.props.onFavorite(this.props.item);
 	};
 	render() {
-		const { image, title } = this.props;
-		const { favorite } = this.state;
+		const { image, title, isFavorite } = this.props;
 		return (
 			<div
 				className='card'
 				style={{
-					backgroundImage: `url(${image})`,
+					backgroundImage: `linear-gradient(#00000020, #000000 90%), url(${image})`,
 				}}
 			>
 				<img
-					src={favorite ? heartActive : heart}
+					src={isFavorite ? heartActive : heart}
 					alt='favorite'
+					className='favorite-icon'
 					onClick={this.handleFavorite}
 				/>
 

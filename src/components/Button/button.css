@@ -1,0 +1,20 @@
+.button {
+	background-color: #c4c4c4;
+	border-radius: 20px;
+	color: black;
+	width: 90px;
+	text-decoration: none;
+	border: none;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+.is-active button {
+	background-color: #fbb040;
+	background-color: #00000020;
+}
+.button-list {
+	display: flex;
+	width: 90%;
+	align-items: center;
+	justify-content: space-around;
+}

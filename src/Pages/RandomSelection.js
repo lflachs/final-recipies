@@ -1,7 +1,11 @@
+// Modules
 import React from 'react';
+
+// Components
 import Loader from '../components/Loader/Loader';
-import Card from '../components/Card/Card';
 import CardList from '../components/Card/CardList';
+
+// Utils
 import { apiUrl } from '../utils/index';
 import { fetching } from '../utils/fetch';
 
@@ -11,7 +15,8 @@ class RandomSelection extends React.Component {
 		fetching(`${apiUrl}/randomselection.php`)
 			.then((data) => {
 				console.log(data);
-				this.setState({ meals: data, loading: false });
+				this.setState({ meals: data });
+				setTimeout(() => this.setState({ loading: false }), 1000);
 			})
 			.catch((err) => this.setState({ errors: err }));
 	}
@@ -19,18 +24,16 @@ class RandomSelection extends React.Component {
 	render() {
 		const { onFavorite, favorites } = this.props;
 		const { meals, errors, loading } = this.state;
-		return loading ? (
+		return loading || errors ? (
 			<Loader />
 		) : (
-			<div className='card-list'>
-				<CardList
-					favorites={favorites}
-					onFavorite={onFavorite}
-					lists={meals}
-					imageKey={'strMealThumb'}
-					titleKey={'strMeal'}
-				/>
-			</div>
+			<CardList
+				favorites={favorites}
+				onFavorite={onFavorite}
+				lists={meals}
+				imageKey={'strMealThumb'}
+				titleKey={'strMeal'}
+			/>
 		);
 	}
 }

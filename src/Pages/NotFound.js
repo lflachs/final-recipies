@@ -1,7 +1,8 @@
 import React from 'react';
+import Animation404 from '../components/Animation404/Animation404';
 
 function NotFound() {
-	return <h1>Not Found :(</h1>;
+	return <Animation404 />;
 }
 
 export default NotFound;

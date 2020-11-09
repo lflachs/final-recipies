@@ -1,9 +1,13 @@
 .card-list {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 .card {
+	position: relative;
 	background-size: cover;
+	background-position: center;
+	transition: all 2s ease-in-out;
 	height: 310px;
 	width: 235px;
 	border-radius: 15px;
@@ -15,9 +19,18 @@
 	font-size: 1.3rem;
 	color: white;
 }
+.card:hover {
+	transform: scale(1.1);
+}
 .favorite-icon {
 	width: 70px;
 	height: 70px;
+}
+.favorite-icon {
+	position: absolute;
+	top: 0;
+	padding: 10px;
+	left: 0;
 }
 /* .favorite-icon path {
 	fill: blue;

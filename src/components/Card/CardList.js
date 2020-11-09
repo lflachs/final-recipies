@@ -1,5 +1,10 @@
+// Modules
 import React from 'react';
+
+//Components
 import Card from './Card';
+
+// CSS
 import './Card.css';
 
 function CardList({

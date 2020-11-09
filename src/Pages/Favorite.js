@@ -1,10 +1,7 @@
 import React from 'react';
-import Loader from '../components/Loader/Loader';
-import Card from '../components/Card/Card';
 import CardList from '../components/Card/CardList';
 
-function Favorite() {
-	const { favorites, onFavorite } = this.props;
+function Favorite({ favorites, onFavorite }) {
 	return (
 		<div className='card-list'>
 			<CardList
