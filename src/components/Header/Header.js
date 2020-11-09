@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../assets/Logo.svg';
 import SearchBar from '../SearchBar/SearchBar';
+import { Link } from 'react-router-dom';
 function Header() {
 	return (
 		<div
@@ -11,7 +12,9 @@ function Header() {
 				padding: '20px',
 			}}
 		>
-			<img src={logo} alt="logo Let's cooking" className='logo' />
+			<Link to='/'>
+				<img src={logo} alt="logo Let's cooking" className='logo' />
+			</Link>
 			<SearchBar />
 		</div>
 	);

@@ -1,26 +1,23 @@
+// Modules
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+// Components
 import Header from './components/Header/Header';
-import Homepage from './Pages/Homepage';
+import Button from './components/Button/Button';
+import NotFound from './Pages/NotFound';
+// CSS
+import './App.css';
+
+// Utils
 import { categories, apiUrl } from './utils/index';
-import Button from './components/Card/Button/Button';
+import Categories from './Pages/Category';
+import RandomSelection from './Pages/RandomSelection';
+import Favorite from './Pages/RandomSelection copy';
 
 export default class App extends React.Component {
-	state = { favorite: [], meals: [], filter: 'Seafood', errors: null };
-	componentDidMount() {
-		this.handleFetch(`${apiUrl}/randomselection.php`);
-	}
-	handleFetch(url) {
-		fetch(url)
-			.then((resp) => resp.json())
-			.then((data) => {
-				if (data.meals) {
-					this.setState({ meals: data.meals, loading: false, errors: null });
-				} else {
-					this.setState({ errors: 'no results found.' });
-				}
-			});
-	}
+	state = { favorite: [] };
+
 	handleFavorite(favorite) {
 		if (this.state.favorite.some((fav) => fav.idMeal === favorite.idMeal)) {
 			this.setState({
@@ -32,31 +29,49 @@ export default class App extends React.Component {
 			this.setState({ favorite: [...this.state.favorite, favorite] });
 		}
 	}
-	handleFilter(filter) {
-		if (filter === 'All') {
-			this.handleFetch(`${apiUrl}/randomselection.php`);
-		}
-		this.handleFetch(`${apiUrl}/filter.php?c=${filter}`);
-	}
 	render() {
-		const { meals, errors } = this.state;
+		const { favorite } = this.state;
 		return (
-			<div>
+			<Router>
 				<Header />
-
 				{categories.map((categorie, index) => (
-					<Button
-						key={index}
-						name={categorie}
-						onClick={(filter) => this.handleFilter(filter)}
-					/>
+					<Link to={categorie !== 'All' ? `/${categorie}` : `/`}>
+						<Button key={index} name={categorie} />
+					</Link>
 				))}
-				{errors && <p>{errors}</p>}
-				<Homepage
-					onFavorite={(item) => this.handleFavorite(item)}
-					meals={meals}
-				/>
-			</div>
+				<Link to='/favorite'>Fav</Link>
+				<Switch>
+					<Route
+						path='/'
+						exact
+						render={() => (
+							<RandomSelection
+								favorites={this.state.favorite}
+								onFavorite={(item) => this.handleFavorite(item)}
+							/>
+						)}
+					/>
+					<Route
+						path='/favorite'
+						exact
+						render={() => (
+							<Favorite
+								onFavorite={(item) => this.handleFavorite(item)}
+								meals={favorite}
+								favorites={this.state.favorite}
+							/>
+						)}
+					/>
+					<Route
+						path='/:filter'
+						exact
+						render={(props) => (
+							<Categories favorites={this.state.favorite} {...props} />
+						)}
+					/>
+					<Route path='*' component={NotFound} />
+				</Switch>
+			</Router>
 		);
 	}
 }
